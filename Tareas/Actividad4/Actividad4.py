@@ -51,13 +51,12 @@ def ver_libros():
 def actualizar_libro(libro_id_str, campo, nuevo_valor):
     """Modifica un campo específico de un documento por su _id."""
     try:
-        # Convertir el ID de string a ObjectId
+
         libro_id = ObjectId(libro_id_str)
     except Exception:
         print(f"\n ERROR: ID '{libro_id_str}' no es un formato válido de MongoDB ObjectId.")
         return
-
-    # Preparar el filtro y la actualización
+    
     filtro = {"_id": libro_id}
     
     # Manejar el campo 'leido' como caso especial (booleano)
@@ -68,7 +67,6 @@ def actualizar_libro(libro_id_str, campo, nuevo_valor):
         actualizacion = {"$set": {campo: nuevo_valor}}
 
     try:
-        # Ejecutar la actualización
         resultado = libros_collection.update_one(filtro, actualizacion)
         
         if resultado.matched_count == 0:
@@ -84,10 +82,8 @@ def actualizar_libro(libro_id_str, campo, nuevo_valor):
 def buscar_libros(termino):
     """Busca documentos por título, autor o género utilizando expresiones regulares."""
     
-    # Expresión regular para búsqueda parcial e insensible a mayúsculas/minúsculas ($options: 'i')
     regex_pattern = {"$regex": termino, "$options": "i"}
 
-    # Construir el filtro $or para buscar en múltiples campos
     filtro = {
         "$or": [
             {"titulo": regex_pattern},
@@ -97,7 +93,7 @@ def buscar_libros(termino):
     }
     
     try:
-        # Ejecutar la búsqueda
+      
         libros = libros_collection.find(filtro)
         
         # Contar resultados (una alternativa más eficiente sería .count_documents(filtro))
