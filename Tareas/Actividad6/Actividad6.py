@@ -29,7 +29,7 @@ except redis.exceptions.ConnectionError as e:
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(24) # Necesario para sesiones/mensajes flash si se usan
 
-# --- Funciones de la Lógica de KeyDB (CRUD) ---
+
 
 def generar_id_unico():
     if r is None: return None
@@ -169,7 +169,7 @@ BASE_HTML = """
 </html>
 """
 
-# Rutas de Flask
+
 
 @app.route('/', methods=['GET', 'POST'])
 def index():

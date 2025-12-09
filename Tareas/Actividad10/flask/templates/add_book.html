@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Añadir Libro</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        label { display: block; margin-top: 10px; }
+        input[type="text"], input[type="number"] { width: 300px; padding: 8px; margin-top: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Añadir Nuevo Libro</h1>
+    <form method="POST">
+        <label for="title">Título:</label>
+        <input type="text" id="title" name="title" required>
+
+        <label for="author">Autor:</label>
+        <input type="text" id="author" name="author" required>
+
+        <label for="year">Año de Publicación:</label>
+        <input type="number" id="year" name="year">
+
+        <br>
+        <input type="submit" value="Guardar Libro">
+    </form>
+    <p><a href="{{ url_for('index') }}">Volver a la lista</a></p>
+</body>
+</html>

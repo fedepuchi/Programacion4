@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mi Biblioteca Personal (Cliente REST)</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .success { background-color: #d4edda; color: #155724; padding: 10px; border: 1px solid #c3e6cb; margin-bottom: 15px; }
+        .error { background-color: #f8d7da; color: #721c24; padding: 10px; border: 1px solid #f5c6cb; margin-bottom: 15px; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+    </style>
+</head>
+<body>
+    <h1>📚 Mi Biblioteca Personal (Cliente REST)</h1>
+    <p><a href="{{ url_for('add_book') }}">Añadir Nuevo Libro</a></p>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul class="flashes">
+        {% for category, message in messages %}
+          <li class="{{ category }}">{{ message }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    {% if books %}
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Título</th>
+                <th>Autor</th>
+                <th>Año</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in books %}
+            <tr>
+                <td>{{ book.id }}</td>
+                <td>{{ book.title }}</td>
+                <td>{{ book.author }}</td>
+                <td>{{ book.year if book.year else 'N/A' }}</td>
+                <td>
+                    <form method="POST" action="{{ url_for('delete_book', book_id=book.id) }}" style="display:inline;">
+                        <input type="submit" value="Eliminar" onclick="return confirm('¿Estás seguro de que quieres eliminar este libro?');">
+                    </form>
+                    </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No hay libros en la biblioteca. ¡Añade uno!</p>
+    {% endif %}
+</body>
+</html>

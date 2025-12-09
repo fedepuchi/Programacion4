@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Confirmar Eliminación{% endblock %}
+
+{% block content %}
+    <div class="confirmation-box">
+        <h1>Confirmar Eliminación</h1>
+        <p>¿Estás seguro de que deseas eliminar el libro **"{{ book.title }}"** de **{{ book.author }}**?</p>
+        
+        <form method="POST" action="{{ url_for('confirm_delete', book_id=book.id) }}" class="confirmation-actions">
+            <button type="submit" class="btn btn-delete-large">Sí, Eliminar Permanentemente</button>
+            <a href="{{ url_for('book_list') }}" class="btn btn-secondary-large">Cancelar</a>
+        </form>
+    </div>
+{% endblock %}
